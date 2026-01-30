@@ -14,7 +14,7 @@ def home():
 def staff_sign():
     return send_file("staff_login.html")
 
-@app.route("/orders")
+@app.route("/orders",methods=['GET'])
 def pull_page():
     token = request.args.get("key")
 
@@ -42,7 +42,7 @@ def login():
     entered = request.form.get("password")
 
     if entered == STAFF_PASSWORD:
-        return redirect(f"/assign_pulls?key={STAFF_PASSWORD}")
+        return redirect(f"/orders?key={STAFF_PASSWORD}")
     else:
         abort(403)
 
