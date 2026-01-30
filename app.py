@@ -9,13 +9,13 @@ STAFF_PASSWORD = os.environ.get("STAFF_PASSWORD")
 
 @app.route("/")
 def home():
-    return send_file("index.html")  # serve your HTML file from the same folder
+    return send_file("index.html")
 
 @app.route("/staff_login")
 def staff_sign():
     return send_file("staff_login.html")
 
-@app.route("/staff_login_successful", methods=['GET'])
+@app.route("/orders",methods=['GET'])
 def pull_page():
     token = request.args.get("key")
 
@@ -38,12 +38,12 @@ def fetch_orders():
         "unrecognized_items": ass.unrecognized_items
     })
 
-@app.route("/login", methods=["GET"])
+@app.route("/login", methods=["POST"])
 def login():
     entered = request.form.get("password")
 
     if entered == STAFF_PASSWORD:
-        return redirect(f"/Pursers_Bank_Site/assign_pulls?key={STAFF_PASSWORD}")
+        return redirect(f"/Pursers_Bank_Site/orders?key={STAFF_PASSWORD}")
     else:
         abort(403)
 
