@@ -77,8 +77,7 @@ class OrderManager:
 
 class AssignmentManager:
     def __init__(self,table,order_list):
-
-        self.employees=[Employee(row) for row in table]
+        self.employees=[Employee(vals) for vals in table.values()]
         self.orders=OrderManager(order_list)
 
         self._assign_orders()
