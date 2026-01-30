@@ -1,0 +1,14 @@
+{
+    "bone": {
+        "points": 1,
+        "cat": "black_market"
+    },
+    "food": {
+        "points": 1,
+        "cat": "mercantile"
+    },
+    "blood ink": {
+        "points": 2,
+        "cat": "black_market"
+    }
+}

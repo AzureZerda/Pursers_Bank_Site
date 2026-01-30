@@ -1,0 +1,50 @@
+{
+    "Mining": {
+        "coal": 1,
+        "salt": 1,
+        "stone": 1,
+        "iron": 2,
+        "quartz": 2,
+        "copper": 2,
+        "marble": 2,
+        "mercury": 3,
+        "sulfur": 3,
+        "silver": 3,
+        "manganese": 3,
+        "obsidian": 4,
+        "gold": 4,
+        "soul gem": 4,
+        "spell crystal": 4
+    },
+    "Mercantile": {
+        "cloth": 1,
+        "5 postage (domestic)": 1,
+        "paper": 1,
+        "food (with 1-month expiration)": 1,
+        "glass": 2,
+        "blood ink": 2,
+        "5 postage (overseas)": 2,
+        "sanctified water": 3,
+        "ritual component": 4
+    },
+    "Black_Market": {
+        "bone": 1,
+        "blood ink": 2,
+        "demon blood": 2,
+        "zye scarab": 3,
+        "celestial blood": 3,
+        "zye blood parasites": 4,
+        "fae blood": 4
+    },
+    "Hunting": {
+        "bone": 1,
+        "feathers": 1,
+        "honey": 1,
+        "food (1-month expiration)": 1,
+        "soft pelt": 2,
+        "demon blood": 2,
+        "large hide": 3,
+        "celestial blood": 3,
+        "fae blood": 4
+    }
+}

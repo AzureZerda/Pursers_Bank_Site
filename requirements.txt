@@ -1,0 +1,4 @@
+flask
+gsheets
+pandas
+flask_cors

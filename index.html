@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pull Automator</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 5px 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <h1>Orders</h1>
+
+  <button onclick="loadOrders()">Load Ordersssss</button>
+
+  <div id="out">Click button...</div>
+
+  <script>
+    async function loadOrders() {
+      try {
+        // Relative URL → same origin → no CORS
+        const res = await fetch("https://pursersbank-production.up.railway.app/orders");
+        if(!res.ok) throw new Error(`HTTP error ${res.status}`);
+        const data = await res.json();
+
+        const assignments = data.assignments;
+        const columns = data.columns;
+
+        if(assignments.length === 0){
+          document.getElementById("out").innerHTML = "No assignments found.";
+          return;
+        }
+
+        let table = "<table><thead><tr>";
+        columns.forEach(col => { table += `<th>${col}</th>` });
+        table += "</tr></thead><tbody>";
+
+        assignments.forEach(row => {
+          table += "<tr>";
+          columns.forEach(col => { table += `<td>${row[col]}</td>` });
+          table += "</tr>";
+        });
+
+        table += "</tbody></table>";
+
+        let extra = `<p>Unassigned Items: ${JSON.stringify(data.unassigned_items)}</p>`;
+        extra += `<p>Unrecognized Items: ${JSON.stringify(data.unrecognized_items)}</p>`;
+
+        document.getElementById("out").innerHTML = table + extra;
+      } catch(err) {
+        document.getElementById("out").innerHTML = `Error loading orders: ${err}`;
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>

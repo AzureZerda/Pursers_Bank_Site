@@ -1,0 +1,140 @@
+{
+    "coal": {
+        "points": 1,
+        "cat": "mining"
+    },
+    "salt": {
+        "points": 1,
+        "cat": "mining"
+    },
+    "stone": {
+        "points": 1,
+        "cat": "mining"
+    },
+    "iron": {
+        "points": 2,
+        "cat": "mining"
+    },
+    "quartz": {
+        "points": 2,
+        "cat": "mining"
+    },
+    "copper": {
+        "points": 2,
+        "cat": "mining"
+    },
+    "marble": {
+        "points": 2,
+        "cat": "mining"
+    },
+    "mercury": {
+        "points": 3,
+        "cat": "mining"
+    },
+    "sulfur": {
+        "points": 3,
+        "cat": "mining"
+    },
+    "silver": {
+        "points": 3,
+        "cat": "mining"
+    },
+    "manganese": {
+        "points": 3,
+        "cat": "mining"
+    },
+    "obsidian": {
+        "points": 4,
+        "cat": "mining"
+    },
+    "gold": {
+        "points": 4,
+        "cat": "mining"
+    },
+    "soul gem": {
+        "points": 4,
+        "cat": "mining"
+    },
+    "spell crystal": {
+        "points": 4,
+        "cat": "mining"
+    },
+    "bone": {
+        "points": 1,
+        "cat": "hunting"
+    },
+    "feathers": {
+        "points": 1,
+        "cat": "hunting"
+    },
+    "honey": {
+        "points": 1,
+        "cat": "hunting",
+        "expiration": "1 month"
+    },
+    "food": {
+        "points": 1,
+        "cat": "hunting",
+        "expiration": "1 month"
+    },
+    "soft pelt": {
+        "points": 2,
+        "cat": "hunting"
+    },
+    "demon blood": {
+        "points": 2,
+        "cat": "hunting"
+    },
+    "large hide": {
+        "points": 3,
+        "cat": "hunting"
+    },
+    "celestial blood": {
+        "points": 3,
+        "cat": "hunting"
+    },
+    "fae blood": {
+        "points": 4,
+        "cat": "hunting"
+    },
+    "cloth": {
+        "points": 1,
+        "cat": "mercantile"
+    },
+    "5 postage (domestic)": {
+        "points": 1,
+        "cat": "mercantile"
+    },
+    "paper": {
+        "points": 1,
+        "cat": "mercantile"
+    },
+    "glass": {
+        "points": 2,
+        "cat": "mercantile"
+    },
+    "blood ink": {
+        "points": 2,
+        "cat": "mercantile"
+    },
+    "5 postage (overseas)": {
+        "points": 2,
+        "cat": "mercantile"
+    },
+    "sanctified water": {
+        "points": 3,
+        "cat": "mercantile"
+    },
+    "ritual component": {
+        "points": 4,
+        "cat": "mercantile"
+    },
+    "zye scarab": {
+        "points": 3,
+        "cat": "black_market"
+    },
+    "zye blood parasites": {
+        "points": 4,
+        "cat": "black_market"
+    }
+}
