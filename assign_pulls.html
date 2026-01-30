@@ -16,6 +16,12 @@
     th {
       background-color: #eee;
     }
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
   </style>
 </head>
 <body>
@@ -23,44 +29,144 @@
 
   <button onclick="loadOrders()">Test Process</button>
 
-  <div id="out">Click button...</div>
+  <h2>Employees</h2>
+  <button onclick="printTableToConsole()">Print Table to Console</button>
+  
+  <div id="employees-out">Loading employees...</div>
 
-  <script>
-    async function loadOrders() {
-      const res = await fetch("https://pursersbank-production.up.railway.app/assign_pulls");
-      const data = await res.json();
+<script>
+  async function loadEmployees() {
+    const res = await fetch("/load_employees");
+    const data = await res.json();
+    
+    const employeesDict = data.employees;
+    if (!employeesDict || Object.keys(employeesDict).length === 0) {
+      document.getElementById("employees-out").innerHTML = "No employees found.";
+      return;
+    }
 
-      // Build HTML table for assignments
-      const assignments = data.assignments;
-      const columns = data.columns;  // Get column order from backend
-      
-      if(assignments.length === 0) {
-        document.getElementById("out").innerHTML = "No assignments found.";
-        return;
+    let table = "<table><thead><tr>";
+    table += "<th></th>"; // for red X
+    table += "<th>Employee</th>";
+    table += "<th>Mining</th><th>Hunting</th><th>Mercantile</th><th>Black Market</th>";
+    table += "</tr></thead><tbody>";
+
+    for (const key in employeesDict) {
+      const rowData = employeesDict[key];
+      table += `<tr id="row-${key}">`;
+
+      // Red X
+      table += `<td style="color:red; cursor:pointer;" onclick="removeRow('${key}')">X</td>`;
+
+      // Column 1 = static
+      table += `<td>${rowData[0]}</td>`;
+
+      // Columns 2-5 = dropdowns
+      for (let i = 1; i <= 4; i++) {
+        const val = rowData[i];
+        // Example options: 0-8; you can adjust as needed
+        const options = Array.from({length: 9}, (_, n) => n);
+        let select = `<select>`;
+        options.forEach(opt => {
+          select += `<option value="${opt}" ${opt==val?'selected':''}>${opt}</option>`;
+        });
+        select += `</select>`;
+        table += `<td>${select}</td>`;
       }
 
-      let table = "<table><thead><tr>";
-      columns.forEach(col => {
-        table += `<th>${col}</th>`;
-      });
-      table += "</tr></thead><tbody>";
-
-      assignments.forEach(row => {
-        table += "<tr>";
-        columns.forEach(col => {
-          table += `<td>${row[col]}</td>`;
-        });
-        table += "</tr>";
-      });
-
-      table += "</tbody></table>";
-
-      // Add extra info if desired
-      let extra = `<p>Unassigned Items: ${JSON.stringify(data.unassigned_items)}</p>`;
-      extra += `<p>Unrecognized Items: ${JSON.stringify(data.unrecognized_items)}</p>`;
-
-      document.getElementById("out").innerHTML = table + extra;
+      table += "</tr>";
     }
-  </script>
+
+    table += "</tbody></table>";
+    document.getElementById("employees-out").innerHTML = table;
+  }
+
+  // Remove row function
+  function removeRow(key) {
+    const row = document.getElementById(`row-${key}`);
+    if(row) row.remove();
+  }
+
+  // Print current table state to console
+  async function printTableToConsole() {
+    const table = document.querySelector('#employees-out table');
+    if(!table) return;
+
+    const rows = table.querySelectorAll('tbody tr');
+    const currentState = {};
+
+    rows.forEach(row => {
+      const rowId = row.id.replace('row-','');
+      const cells = row.querySelectorAll('td');
+
+      currentState[rowId] = [
+        cells[1].textContent,
+        parseInt(cells[2].querySelector('select').value),
+        parseInt(cells[3].querySelector('select').value),
+        parseInt(cells[4].querySelector('select').value),
+        parseInt(cells[5].querySelector('select').value)
+      ];
+    });
+
+    const response = await fetch("/assign_pulls", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(currentState)
+    });
+
+    const result = await response.json();
+
+    renderAssignments(result);
+  }
+
+  function renderAssignments(data) {
+    const container = document.getElementById("employees-out");
+
+    let html = "<h2>Assignments</h2>";
+
+    if(data.assignments && data.assignments.length) {
+      html += "<table><thead><tr>";
+
+      data.columns.forEach(col => {
+        html += `<th>${col}</th>`;
+      });
+
+      html += "</tr></thead><tbody>";
+
+      data.assignments.forEach(row => {
+        html += "<tr>";
+        data.columns.forEach(col => {
+          html += `<td>${row[col] ?? ""}</td>`;
+        });
+        html += "</tr>";
+      });
+
+      html += "</tbody></table>";
+    } else {
+      html += "<p>No assignments returned.</p>";
+    }
+
+    // Unassigned Items
+    html += "<h3>Unassigned Items</h3>";
+    if(data.unassigned_items && Object.keys(data.unassigned_items).length > 0) {
+      html += "<pre>" + JSON.stringify(data.unassigned_items, null, 2) + "</pre>";
+    } else {
+      html += "<p>None</p>";
+    }
+
+    // Unrecognized Items
+    html += "<h3>Unrecognized Items</h3>";
+    if(data.unrecognized_items && Object.keys(data.unrecognized_items).length > 0) {
+      html += "<pre>" + JSON.stringify(data.unrecognized_items, null, 2) + "</pre>";
+    } else {
+      html += "<p>None</p>";
+    }
+
+    container.innerHTML = html;
+  }
+
+  window.onload = loadEmployees;
+</script>
+
 </body>
 </html>
