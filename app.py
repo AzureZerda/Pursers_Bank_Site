@@ -1,8 +1,9 @@
 from flask import Flask, request, redirect, send_file, abort, jsonify
-
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 STAFF_PASSWORD = 'EERIE'
 
@@ -42,7 +43,7 @@ def login():
     entered = request.form.get("password")
 
     if entered == STAFF_PASSWORD:
-        return redirect(f"/orders?key={STAFF_PASSWORD}")
+        return redirect(f"https://pursersbank-production.up.railway.app/orders?key={STAFF_PASSWORD}")
     else:
         abort(403)
 
