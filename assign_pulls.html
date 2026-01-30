@@ -27,7 +27,7 @@
 
   <script>
     async function loadOrders() {
-      const res = await fetch("https://pursersbank-production.up.railway.app/orders");
+      const res = await fetch("https://pursersbank-production.up.railway.app/assign_pulls");
       const data = await res.json();
 
       // Build HTML table for assignments

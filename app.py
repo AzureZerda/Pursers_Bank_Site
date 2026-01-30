@@ -15,7 +15,7 @@ def home():
 def staff_sign():
     return send_file("staff_login.html")
 
-@app.route("/orders")
+@app.route("/staff_login_successful", methods=['GET'])
 def pull_page():
     token = request.args.get("key")
 
