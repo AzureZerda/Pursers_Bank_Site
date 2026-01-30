@@ -2,12 +2,12 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Purser's Bank</title>
+  <title>Staff Access</title>
 
   <style>
     body {
-      margin: 0;
       height: 100vh;
+      margin: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -15,21 +15,21 @@
       font-family: Arial, sans-serif;
     }
 
-    h1 {
-      margin-bottom: 30px;
-      font-size: 2.5rem;
-    }
-
-    button {
-      padding: 12px 24px;
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
       font-size: 1rem;
-      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
-  <h1>Purser's Bank</h1>
-  <button onclick="location.href='/staff_login'">Staff Only</button>
+  <h1>Enter Staff Password</h1>
+
+  <form method="POST" action="/login">
+    <input type="password" name="password" placeholder="Password" required />
+    <br>
+    <button type="submit">Submit</button>
+  </form>
 </body>
 </html>

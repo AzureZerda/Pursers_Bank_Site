@@ -1,11 +1,29 @@
-from flask import Flask, jsonify, send_file
-from flask_cors import CORS  # <--- added
+from flask import Flask, request, redirect, send_file, abort, jsonify
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)  # <--- added
+CORS(app)
 
-@app.route("/orders", methods=["GET"])
+STAFF_PASSWORD = os.environ.get("STAFF_PASSWORD")
+
+@app.route("/")
+def home():
+    return send_file("index.html")  # serve your HTML file from the same folder
+
+@app.route("/staff_login")
+def staff_sign():
+    return send_file("staff_login.html")
+
+@app.route("/orders")
+def pull_page():
+    token = request.args.get("key")
+
+    if token != STAFF_PASSWORD:
+        abort(403)
+    return send_file("assign_pulls.html")
+
+@app.route("/assign_pulls", methods=["GET"])
 def fetch_orders():
     from Pull_Automator.employees import GathingSkills
     from Pull_Automator.orders import OrderSheet
@@ -19,6 +37,16 @@ def fetch_orders():
         "unassigned_items": ass.unassigned_items,
         "unrecognized_items": ass.unrecognized_items
     })
+
+@app.route("/login", methods=["POST"])
+def login():
+    entered = request.form.get("password")
+
+    if entered == STAFF_PASSWORD:
+        return redirect(f"/orders?key={STAFF_PASSWORD}")
+    else:
+        print(f'you entered: {entered}. The password is: {STAFF_PASSWORD}')
+        abort(403)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
