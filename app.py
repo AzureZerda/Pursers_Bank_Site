@@ -45,7 +45,6 @@ def login():
     if entered == STAFF_PASSWORD:
         return redirect(f"/orders?key={STAFF_PASSWORD}")
     else:
-        print(f'you entered: {entered}. The password is: {STAFF_PASSWORD}')
         abort(403)
 
 if __name__ == "__main__":
