@@ -1,11 +1,10 @@
 from flask import Flask, request, redirect, send_file, abort, jsonify
-from flask_cors import CORS
+
 import os
 
 app = Flask(__name__)
-CORS(app)
 
-STAFF_PASSWORD = os.environ.get("STAFF_PASSWORD")
+STAFF_PASSWORD = 'EERIE'
 
 @app.route("/")
 def home():
@@ -15,7 +14,7 @@ def home():
 def staff_sign():
     return send_file("staff_login.html")
 
-@app.route("/orders",methods=['GET'])
+@app.route("/orders")
 def pull_page():
     token = request.args.get("key")
 
@@ -43,9 +42,9 @@ def login():
     entered = request.form.get("password")
 
     if entered == STAFF_PASSWORD:
-        return redirect(f"/Pursers_Bank_Site/orders?key={STAFF_PASSWORD}")
+        return redirect(f"/assign_pulls?key={STAFF_PASSWORD}")
     else:
         abort(403)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    app.run(host="0.0.0.0", port=8080)
