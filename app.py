@@ -43,7 +43,7 @@ def login():
     entered = request.form.get("password")
 
     if entered == STAFF_PASSWORD:
-        return redirect(f"/Pursers_Bank_Site/orders?key={STAFF_PASSWORD}")
+        return redirect(f"/Pursers_Bank_Site/assign_pulls?key={STAFF_PASSWORD}")
     else:
         abort(403)
 
