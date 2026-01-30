@@ -38,7 +38,7 @@ def fetch_orders():
         "unrecognized_items": ass.unrecognized_items
     })
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET"])
 def login():
     entered = request.form.get("password")
 
