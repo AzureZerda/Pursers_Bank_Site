@@ -8,11 +8,11 @@ STAFF_PASSWORD = 'EERIE'
 
 @app.route("/")
 def home():
-    return send_file("test_index.html")
+    return send_file("index.html")
 
 @app.route("/staff_login")
 def staff_sign():
-    return send_file("test_staff_login.html")
+    return send_file("staff_login.html")
 
 @app.route("/orders", methods=['GET'])
 def pull_page():
@@ -20,7 +20,7 @@ def pull_page():
 
     if token != STAFF_PASSWORD:
         abort(403)
-    return send_file("test_assign_pulls.html")
+    return send_file("assign_pulls.html")
 
 @app.route("/load_employees", methods=["GET"])
 def fetch_orders():
