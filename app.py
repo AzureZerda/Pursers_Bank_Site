@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-STAFF_PASSWORD = 'EERIE'
+STAFF_PASSWORD = os.environ.get("STAFF_PASSWORD")
 
 @app.route("/")
 def home():
