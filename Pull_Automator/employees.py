@@ -22,16 +22,12 @@ class GathingSkills:
 
         s = sheets.get(BLACKBOOK_URL)
 
-        available_employees=set(['Malik','Oso','Vena','Vicenna','Freya','Apotheosis','Thespia','Jack','Ithillen'])
-
         test=s.find('Gathing skills').to_frame()
         test.rename(columns={'Unnamed: 0':'Employee','Black Market':'Black_Market'},inplace=True)
         test=test[test['Employee'].notna()]
         test=test[test['Employee']!='Ships'].fillna(0)
         self.df=(test.iloc[:,:5])
         for row in self.df.itertuples():
-            if row.Employee not in available_employees:
-                continue
             self.employees[row.Employee]=[]
             for name,value in zip(row._fields,row[1:]):
                 self.employees[row.Employee].append(value)
