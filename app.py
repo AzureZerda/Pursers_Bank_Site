@@ -2,9 +2,9 @@ from flask import Flask, request, redirect, send_file, abort, jsonify
 
 import os
 
-app = Flask(__name__)
+app = Flask(__name__) # code runs with flask
 
-STAFF_PASSWORD = os.environ.get("STAFF_PASSWORD")
+STAFF_PASSWORD = os.environ.get("STAFF_PASSWORD") # ask azure for it
 
 @app.route("/")
 def home():
